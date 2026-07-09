@@ -1,0 +1,34 @@
+from sqlalchemy.orm import Session
+from ..models.article import ArticleDB
+
+
+class ArticleRepository:
+    def __init__(self, db: Session):
+        self.db = db
+
+    def create(self, title: str, content: str):
+        article = ArticleDB(title=title, content=content)
+        self.db.add(article)
+        self.db.commit()
+        self.db.refresh(article)
+
+        return article
+
+    def get_by_id(self, id: int):
+        article = self.db.query(ArticleDB).filter(ArticleDB.id == id).first()
+
+        return article
+
+    def update(self, id: int, title: str, content: str):
+        article = self.db.query(ArticleDB).filter(ArticleDB.id == id).first()
+
+        if article is None:
+            return None
+
+        article.title = title
+        article.content = content
+
+        self.db.commit()
+        self.db.refresh(article)
+
+        return article

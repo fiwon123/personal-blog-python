@@ -1,25 +1,24 @@
+from datetime import datetime
 from ..database import Base
 from sqlalchemy import (
-    Column,
     DateTime,
-    Integer,
-    String,
     func,
 )
+from sqlalchemy.orm import mapped_column, Mapped
 
 
-class Article(Base):
-    __table__name = "articles"
+class ArticleDB(Base):
+    __tablename__ = "articles"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String, nullable=False)
-    content = Column(String, nullable=False)
-    update_at = Column(
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
+    title: Mapped[str] = mapped_column(nullable=False)
+    content: Mapped[str] = mapped_column(nullable=False)
+    update_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         server_onupdate=func.now(),
         nullable=False,
     )
-    create_at = Column(
+    create_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False
     )
