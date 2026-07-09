@@ -41,8 +41,8 @@ def get_article_service(db: Session = Depends(get_db)):
 
 
 @router.get("", status_code=status.HTTP_200_OK)
-async def get_articles():
-    return articles
+async def get_articles(service: ArticleService = Depends(get_article_service)):
+    return service.get_all()
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
