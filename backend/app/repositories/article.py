@@ -19,14 +19,14 @@ class ArticleRepository:
 
         return article
 
-    def update(self, id: int, title: str, content: str):
-        article = self.db.query(ArticleDB).filter(ArticleDB.id == id).first()
+    def update(self, id: int, data: dict):
+        article = self.get_by_id(id)
 
         if article is None:
             return None
 
-        article.title = title
-        article.content = content
+        for key, value in data.items():
+            setattr(article, key, value)
 
         self.db.commit()
         self.db.refresh(article)

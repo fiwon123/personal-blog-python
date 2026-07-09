@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from starlette.status import HTTP_404_NOT_FOUND
 
-from app.schemas.articles import CreateArticleRequest
+from app.schemas.articles import CreateArticleRequest, UpdateArticleRequest
 
 from ..database.db import get_db
 from ..repositories.article import ArticleRepository
@@ -60,11 +61,19 @@ async def create_article(
 
 
 @router.put("/{id}", status_code=status.HTTP_204_NO_CONTENT)
-async def update_article(id: str, article: dict[str, str]):
-    for art in articles:
-        if art.get("id") == id:
-            articles[int(int(art.get("id", 1))) - 1] = article
-            break
+async def update_article(
+    id: int,
+    request: UpdateArticleRequest,
+    service: ArticleService = Depends(get_article_service),
+):
+    data = request.model_dump(exclude_unset=True)
+    result = service.update_article(id, data)
+
+    if result is None:
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND,
+                            detail="article not found")
+
+    return result
 
 
 @router.delete("/{id}", status_code=status.HTTP_200_OK)

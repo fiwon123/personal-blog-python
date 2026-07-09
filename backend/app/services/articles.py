@@ -7,3 +7,6 @@ class ArticleService:
 
     def create_article(self, title: str, content: str):
         return self.repo.create(title, content)
+
+    def update_article(self, id: int, data: dict):
+        return self.repo.update(id, data)
