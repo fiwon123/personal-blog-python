@@ -5,8 +5,13 @@ class ArticleService:
     def __init__(self, repo: ArticleRepository):
         self.repo = repo
 
-    def create_article(self, title: str, content: str):
+    def create(self, title: str, content: str):
         return self.repo.create(title, content)
 
-    def update_article(self, id: int, data: dict):
+    def update(self, id: int, data: dict):
         return self.repo.update(id, data)
+
+    def delete(self, id: int):
+        return self.repo.delete(
+            id,
+        )

@@ -50,7 +50,7 @@ async def create_article(
     request: CreateArticleRequest,
     service: ArticleService = Depends(get_article_service),
 ):
-    article = service.create_article(request.title, request.content)
+    article = service.create(request.title, request.content)
 
     if article is None:
         raise HTTPException(
@@ -67,18 +67,24 @@ async def update_article(
     service: ArticleService = Depends(get_article_service),
 ):
     data = request.model_dump(exclude_unset=True)
-    result = service.update_article(id, data)
+    result = service.update(id, data)
+
+    if result is None:
+        raise HTTPException(status_code=HTTP_404_NOT_FOUND,
+                            detail="article not found")
+
+
+@router.delete("/{id}", status_code=status.HTTP_200_OK)
+async def delete_article(
+    id: int,
+    service: ArticleService = Depends(
+        get_article_service,
+    ),
+):
+    result = service.delete(id)
 
     if result is None:
         raise HTTPException(status_code=HTTP_404_NOT_FOUND,
                             detail="article not found")
 
     return result
-
-
-@router.delete("/{id}", status_code=status.HTTP_200_OK)
-async def delete_article(id: str):
-    for art in articles:
-        if art.get("id") == id:
-            articles.remove(art)
-            break

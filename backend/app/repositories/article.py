@@ -32,3 +32,14 @@ class ArticleRepository:
         self.db.refresh(article)
 
         return article
+
+    def delete(self, id: int):
+        article = self.get_by_id(id)
+
+        if article is None:
+            return None
+
+        self.db.delete(article)
+        self.db.commit()
+
+        return article
