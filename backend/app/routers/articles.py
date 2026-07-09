@@ -1,4 +1,11 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+
+from app.schemas.articles import CreateArticleRequest
+
+from ..database.db import get_db
+from ..repositories.article import ArticleRepository
+from ..services.articles import ArticleService
 
 router = APIRouter(
     prefix="/articles",
@@ -27,14 +34,28 @@ articles = [
 ]
 
 
+def get_article_service(db: Session = Depends(get_db)):
+    repo = ArticleRepository(db)
+    return ArticleService(repo)
+
+
 @router.get("", status_code=status.HTTP_200_OK)
 async def get_articles():
     return articles
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-async def create_article(article: dict[str, str]):
-    articles.append(article)
+async def create_article(
+    request: CreateArticleRequest,
+    service: ArticleService = Depends(get_article_service),
+):
+    article = service.create_article(request.title, request.content)
+
+    if article is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="server error"
+        )
+
     return article
 
 
