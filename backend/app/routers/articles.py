@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_404_NOT_FOUND
 
-from app.schemas.articles import CreateArticleRequest, UpdateArticleRequest
+from ..schemas.articles import CreateArticleRequest, UpdateArticleRequest
 
 from ..database.db import get_db
 from ..repositories.article import ArticleRepository
@@ -12,27 +12,6 @@ router = APIRouter(
     prefix="/articles",
     tags=["articles"],
 )
-
-articles = [
-    {
-        "id": "1",
-        "title": "title",
-        "content": "content",
-        "date": "date",
-    },
-    {
-        "id": "2",
-        "title": "title",
-        "content": "content",
-        "date": "date",
-    },
-    {
-        "id": "3",
-        "title": "title",
-        "content": "content",
-        "date": "date",
-    },
-]
 
 
 def get_article_service(db: Session = Depends(get_db)):
