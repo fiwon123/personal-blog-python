@@ -31,7 +31,15 @@ class UpdateArticleRequest(BaseModel):
     }
 
 
-class ArticleResponse(BaseModel):
+class ArticleListResponse(BaseModel):
+    id: int
+    title: str
+    created_at: Optional[datetime] = None
+
+    model_config = {"from_attributes": True}
+
+
+class ArticleDetailResponse(BaseModel):
     id: int
     title: str
     content: str

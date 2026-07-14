@@ -3,7 +3,8 @@ from sqlalchemy.orm import Session
 from starlette.status import HTTP_404_NOT_FOUND
 
 from ..schemas.articles import (
-    ArticleResponse,
+    ArticleDetailResponse,
+    ArticleListResponse,
     CreateArticleRequest,
     UpdateArticleRequest,
 )
@@ -25,15 +26,32 @@ def get_article_service(db: Session = Depends(get_db)):
 
 @router.get(
     "",
-    response_model=list[ArticleResponse],
+    response_model=list[ArticleListResponse],
     status_code=status.HTTP_200_OK,
 )
 async def get_articles(service: ArticleService = Depends(get_article_service)):
 
     res = service.get_all()
-    print("get all", res)
 
     return res
+
+
+@router.get(
+    "/{id}",
+    response_model=ArticleDetailResponse,
+    status_code=status.HTTP_200_OK,
+)
+async def get_single_article(
+    id: int,
+    service: ArticleService = Depends(get_article_service),
+):
+    res = service.get_article_by_id(id)
+    if res is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="article not found"
+        )
+
+    return ArticleDetailResponse.model_validate(res)
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)

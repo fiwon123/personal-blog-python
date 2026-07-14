@@ -1,23 +1,23 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
-
-
+import { getSingleArticle } from '../api/articles';
+import { formatDate } from '../utils/formatDate';
 function Article() {
   const { id } = useParams();
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [createdAt, setCreatedAt] = useState('')
 
   useEffect(() => {
-    axios.get(`/v1/articles/${id}`)
-      .then(res => {
-        const article = res.data
 
+    getSingleArticle(Number(id))
+      .then((article) => {
+
+        console.log(article)
+        setTitle(article.title)
         setContent(article.content)
         setCreatedAt(article.createdAt)
-      }).catch(err => {
-        console.log("error: ", err)
-      })
+      }).catch(error => console.log('error: ', error));
   }, [id])
 
 
@@ -25,8 +25,8 @@ function Article() {
 
   return (
     <div>
-      <h1>Article</h1>
-      <h3>{createdAt}</h3>
+      <h1>{title}</h1>
+      <h3>{formatDate(createdAt)}</h3>
       <div>
         {content}
       </div>

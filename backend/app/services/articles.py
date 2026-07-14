@@ -1,5 +1,5 @@
 from ..repositories.article import ArticleRepository
-from ..schemas.articles import ArticleResponse
+from ..schemas.articles import ArticleListResponse
 
 
 class ArticleService:
@@ -12,9 +12,14 @@ class ArticleService:
 
         result = []
         for item in articles:
-            result.append(ArticleResponse.model_validate(item))
+            result.append(ArticleListResponse.model_validate(item))
 
         return result
+
+    def get_article_by_id(self, id: int):
+        article = self.repo.get_by_id(id)
+
+        return article
 
     def create(self, title: str, content: str):
         return self.repo.create(title, content)

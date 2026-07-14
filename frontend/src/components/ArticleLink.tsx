@@ -1,3 +1,5 @@
+import { formatDate } from "../utils/formatDate";
+
 type ArticleLinkProps = {
   title: string;
   createdAt: string;
@@ -5,15 +7,11 @@ type ArticleLinkProps = {
 
 function ArticleLink({ title, createdAt }: ArticleLinkProps) {
 
-  const date = new Date(createdAt)
 
   return (
     <div>{title} - {" "}
-      {date.toLocaleDateString('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-      })}</div>
+      {formatDate(createdAt)}
+    </div>
   )
 }
 

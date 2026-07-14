@@ -1,24 +1,16 @@
 import ArticleLink from "../components/ArticleLink";
 import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { getArticles } from "../api/articles";
+import type { ArticleListItem } from "../types/articles";
 
-type Article = {
-  id: string,
-  title: string,
-  created_at: string
-}
 
 export function Home() {
-  const [articles, setArticles] = useState<Article[]>([])
+  const [articles, setArticles] = useState<ArticleListItem[]>([])
 
   useEffect(() => {
-    axios.get('/v1/articles')
-      .then(res => {
-
-        setArticles(res.data)
-      }).catch(error => {
-        console.log('error: ', error)
-      })
+    getArticles()
+      .then(setArticles)
+      .catch(error => console.log('error:', error))
   }, [])
 
   return (
@@ -28,7 +20,7 @@ export function Home() {
         < ArticleLink
           key={article.id}
           title={article.title}
-          createdAt={article.created_at}
+          createdAt={article.createdAt}
         />))}
     </div>
   )
