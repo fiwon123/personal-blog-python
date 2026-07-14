@@ -1,4 +1,5 @@
 from ..repositories.article import ArticleRepository
+from ..schemas.articles import ArticleResponse
 
 
 class ArticleService:
@@ -6,7 +7,14 @@ class ArticleService:
         self.repo = repo
 
     def get_all(self):
-        return self.repo.get_all()
+
+        articles = self.repo.get_all()
+
+        result = []
+        for item in articles:
+            result.append(ArticleResponse.model_validate(item))
+
+        return result
 
     def create(self, title: str, content: str):
         return self.repo.create(title, content)

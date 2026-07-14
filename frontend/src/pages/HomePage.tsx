@@ -5,15 +5,16 @@ import axios from 'axios'
 type Article = {
   id: string,
   title: string,
-  createdAt: string
+  created_at: string
 }
 
 export function Home() {
   const [articles, setArticles] = useState<Article[]>([])
 
   useEffect(() => {
-    axios.get('http://localhost:8000/articles')
+    axios.get('/v1/articles')
       .then(res => {
+
         setArticles(res.data)
       }).catch(error => {
         console.log('error: ', error)
@@ -27,7 +28,7 @@ export function Home() {
         < ArticleLink
           key={article.id}
           title={article.title}
-          createdAt={article.createdAt}
+          createdAt={article.created_at}
         />))}
     </div>
   )

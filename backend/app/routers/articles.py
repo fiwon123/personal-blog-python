@@ -2,7 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from starlette.status import HTTP_404_NOT_FOUND
 
-from ..schemas.articles import CreateArticleRequest, UpdateArticleRequest
+from ..schemas.articles import (
+    ArticleResponse,
+    CreateArticleRequest,
+    UpdateArticleRequest,
+)
 
 from ..database.db import get_db
 from ..repositories.article import ArticleRepository
@@ -19,9 +23,17 @@ def get_article_service(db: Session = Depends(get_db)):
     return ArticleService(repo)
 
 
-@router.get("", status_code=status.HTTP_200_OK)
+@router.get(
+    "",
+    response_model=list[ArticleResponse],
+    status_code=status.HTTP_200_OK,
+)
 async def get_articles(service: ArticleService = Depends(get_article_service)):
-    return service.get_all()
+
+    res = service.get_all()
+    print("get all", res)
+
+    return res
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)

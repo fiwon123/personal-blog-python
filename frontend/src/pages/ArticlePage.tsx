@@ -9,7 +9,7 @@ function Article() {
   const [createdAt, setCreatedAt] = useState('')
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/v1/articles/${id}`)
+    axios.get(`/v1/articles/${id}`)
       .then(res => {
         const article = res.data
 

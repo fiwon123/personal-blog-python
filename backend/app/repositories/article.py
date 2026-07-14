@@ -14,6 +14,9 @@ class ArticleRepository:
     def get_all(self):
         articles = self.db.query(ArticleDB).all()
 
+        if articles is None:
+            return []
+
         return articles
 
     def create(self, title: str, content: str):
