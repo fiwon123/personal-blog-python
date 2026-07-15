@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 import os
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, APIRouter, status, Response
 from jose import JWTError, jwt
 from fastapi.security import OAuth2PasswordBearer
+
 
 admin = {"id": 1, "role": "admin"}
 
@@ -12,7 +13,12 @@ if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY environment variable must be set")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/aith/token")
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/auth/token")
+
+router = APIRouter(
+    prefix="/auth",
+    tags=["auth"],
+)
 
 
 def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
@@ -46,3 +52,16 @@ def create_access_token(
         "exp": datetime.now(timezone.utc) + expires_delta,
     }
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+@router.post("/logout")
+async def logout(response: Response):
+    response.delete_cookie("access_token")
+    return {"message": "Logged out"}
+
+
+@router.get("/me", status_code=status.HTTP_200_OK)
+async def read_current_user(
+    current_user: Annotated[dict[str, str], Depends(get_current_user)],
+):
+    return current_user

@@ -1,5 +1,5 @@
 from fastapi import APIRouter, FastAPI
-from .routers import articles
+from .routers import articles, auth
 
 app = FastAPI(
     title="Blog API",
@@ -14,6 +14,7 @@ v_router = APIRouter(
 )
 
 v_router.include_router(articles.router)
+v_router.include_router(auth.router)
 app.include_router(v_router)
 
 
