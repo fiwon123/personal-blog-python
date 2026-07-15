@@ -5,19 +5,26 @@ import Article from './pages/ArticlePage'
 import EditArticle from './pages/admin/EditArticlePage'
 import NewArticle from './pages/admin/NewArticlePage'
 import './App.css'
+import { AuthProvider } from './contexts/AuthProvider.tsx'
+import { AdminRoute } from './routes/AdminRoute'
 
 function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/article/:id" element={<Article />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/edit" element={<EditArticle />} />
-        <Route path="/new" element={<NewArticle />} />
-      </Routes>
+      <AuthProvider>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
+          <Route path="/article/:id" element={<Article />} />
+
+          <Route element={<AdminRoute />}>
+            <Route path="/admin" element={<Dashboard />} />
+            <Route path="/edit" element={<EditArticle />} />
+            <Route path="/new" element={<NewArticle />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   )
 }
