@@ -8,8 +8,13 @@ export const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
-  if (token && config.headers) {
+  if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+
+  if (config.method === "post" || config.method === "put" || config.method === "patch") {
+    config.headers["Content-Type"] ??= "application/json";
+  }
+
   return config
 });

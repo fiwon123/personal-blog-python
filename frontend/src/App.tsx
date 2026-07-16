@@ -2,12 +2,12 @@ import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom'
 import { Home } from './pages/HomePage'
 import Dashboard from './pages/admin/DashboardPage'
 import Article from './pages/ArticlePage'
-import EditArticle from './pages/admin/EditArticlePage'
+import EditArticle from './pages/admin/edit-articles/EditArticlePage.tsx'
 import NewArticle from './pages/admin/NewArticlePage'
 import './App.css'
 import { AuthProvider } from './contexts/AuthProvider.tsx'
 import { AdminRoute } from './routes/AdminRoute'
-import LoginAdmin from './pages/admin/Login/LoginAdminPage.tsx'
+import LoginAdmin from './pages/admin/login/LoginAdminPage.tsx'
 
 function App() {
 
@@ -22,7 +22,7 @@ function App() {
 
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Dashboard />} />
-            <Route path="/edit" element={<EditArticle />} />
+            <Route path="/edit/:id" element={<EditArticle />} />
             <Route path="/new" element={<NewArticle />} />
           </Route>
         </Routes>

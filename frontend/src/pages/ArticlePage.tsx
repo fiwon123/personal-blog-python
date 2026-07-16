@@ -3,14 +3,18 @@ import { useParams } from 'react-router-dom'
 import { getSingleArticle } from '../api/articles';
 import { formatDate } from '../utils/formatDate';
 function Article() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [createdAt, setCreatedAt] = useState('')
 
   useEffect(() => {
 
-    getSingleArticle(Number(id))
+    if (!id) {
+      return
+    }
+
+    getSingleArticle(id)
       .then((article) => {
 
         console.log(article)

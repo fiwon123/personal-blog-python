@@ -16,7 +16,7 @@ export async function getArticles(): Promise<ArticleListItem[]> {
   }))
 }
 
-export async function getSingleArticle(id: number): Promise<ArticleDetail> {
+export async function getSingleArticle(id: string): Promise<ArticleDetail> {
   const res = await api.get(`/v1/articles/${id}`);
 
   const article = res.data
@@ -28,4 +28,10 @@ export async function getSingleArticle(id: number): Promise<ArticleDetail> {
     createdAt: article.created_at,
     updatedAt: article.updated_at,
   }
+}
+
+export async function updateArticle(id: string, title: string, content: string): Promise<boolean> {
+  const res = await api.post(`/v1/articles/${id}`, { title, content })
+
+  return res.data
 }

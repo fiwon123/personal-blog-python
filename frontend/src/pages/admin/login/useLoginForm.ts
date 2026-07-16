@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 export function useUsername() {
   const [username, setUsername] = useState("")
 
@@ -20,4 +19,3 @@ export function usePassword() {
 
   return { password, handlePasswordChange }
 }
-
