@@ -8,7 +8,7 @@ export default defineConfig({
     host: true,
     port: 5173,
     proxy: {
-      "/v1/articles": {
+      "/v1": {
         target: "http://backend:8000",
         changeOrigin: true,
         secure: false,

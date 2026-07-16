@@ -7,6 +7,7 @@ import NewArticle from './pages/admin/NewArticlePage'
 import './App.css'
 import { AuthProvider } from './contexts/AuthProvider.tsx'
 import { AdminRoute } from './routes/AdminRoute'
+import LoginAdmin from './pages/admin/Login/LoginAdminPage.tsx'
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/article/:id" element={<Article />} />
+          <Route path="/login" element={<LoginAdmin />} />
 
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Dashboard />} />

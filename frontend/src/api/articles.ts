@@ -1,5 +1,5 @@
-import axios from 'axios';
 import type { ArticleDetail, ArticleListItem } from '../types/articles';
+import { api } from '../contexts/useApi'
 
 type ApiArticle = {
   id: number;
@@ -8,7 +8,7 @@ type ApiArticle = {
 }
 
 export async function getArticles(): Promise<ArticleListItem[]> {
-  const res = await axios.get('/v1/articles');
+  const res = await api.get('/v1/articles');
   return res.data.map((article: ApiArticle) => ({
     id: article.id,
     title: article.title,
@@ -17,7 +17,7 @@ export async function getArticles(): Promise<ArticleListItem[]> {
 }
 
 export async function getSingleArticle(id: number): Promise<ArticleDetail> {
-  const res = await axios.get(`/v1/articles/${id}`);
+  const res = await api.get(`/v1/articles/${id}`);
 
   const article = res.data
 

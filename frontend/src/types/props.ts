@@ -4,4 +4,3 @@ export type Props = {
   children: ReactNode
 }
 
-export default Props

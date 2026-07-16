@@ -1,19 +1,7 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import type { Props } from '../types/props'
 import { AuthContext } from './AuthContext.ts'
-
-const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-});
-
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token && config.headers) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config
-});
+import { api } from './useApi.ts'
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState(null);
@@ -22,7 +10,7 @@ export function AuthProvider({ children }: Props) {
   useEffect(() => {
     async function loadUser() {
       try {
-        const res = await api.get("/me");
+        const res = await api.get("/v1/auth/me");
         setUser(res.data.user);
       } catch {
         setUser(null);
@@ -34,7 +22,8 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   const login = async (username: string, password: string) => {
-    const res = await api.post("/login", { username, password });
+    const res = await api.post("/v1/auth/login", { username, password }, { headers: { "Content-Type": "application/x-www-form-urlencoded" } });
+
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user)
   };
