@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { getArticles } from '@/api/articles'
+import { deleteArticle, getArticles } from '@/api/articles'
 import type { ArticleListItem } from '@/types/articles'
 import ArticleLink from '@/components/ArticleLink'
 import './Dashboard.css'
+import { useNavigate } from 'react-router-dom'
 
 function Dashboard() {
-
+  const navigate = useNavigate()
   const [articles, setArticles] = useState<ArticleListItem[]>([])
 
   useEffect(() => {
@@ -18,23 +19,28 @@ function Dashboard() {
     <div>
       <div className="header">
         <h1>Personal Blog</h1>
-        <button>+ Add</button>
+        <button onClick={() => navigate('/new')}>+ Add</button>
       </div>
-      {articles.map((article) => (
-        <div className="dashboard-container" key={article.id}>
-          < ArticleLink
-            title={article.title}
-            createdAt={article.createdAt}
-          />
+      {
+        articles.map((article) => (
+          <div className="dashboard-container" key={article.id}>
+            < ArticleLink
+              title={article.title}
+              createdAt={article.createdAt}
+            />
 
-          <div className="actions">
-            <button >Edit </button>
-            <button >Delete</button>
-          </div>
-        </div>
+            <div className="actions">
+              <button onClick={() => navigate(`/edit/${article.id}`)}>Edit </button>
+              <button onClick={() => {
+                deleteArticle(article.id)
+                setArticles((prev) => prev.filter((a) => a.id !== article.id));
+              }}>Delete</button>
+            </div>
+          </div >
 
-      ))}
-    </div>
+        ))
+      }
+    </div >
   )
 
 }

@@ -30,8 +30,20 @@ export async function getSingleArticle(id: string): Promise<ArticleDetail> {
   }
 }
 
+export async function createArticle(title: string, content: string): Promise<boolean> {
+  const res = await api.post("/v1/articles", { title, content })
+
+  return res.data
+}
+
 export async function updateArticle(id: string, title: string, content: string): Promise<boolean> {
-  const res = await api.post(`/v1/articles/${id}`, { title, content })
+  const res = await api.patch(`/v1/articles/${id}`, { title, content })
+
+  return res.data
+}
+
+export async function deleteArticle(id: number): Promise<boolean> {
+  const res = await api.delete(`/v1/articles/${id}`)
 
   return res.data
 }

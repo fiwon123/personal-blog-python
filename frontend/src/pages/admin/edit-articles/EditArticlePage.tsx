@@ -6,7 +6,7 @@ import { formatDate } from "../../../utils/formatDate";
 
 function EditArticle() {
   const { id } = useParams<{ id: string }>()
-  const { title, setTitle, handleTItleChange,
+  const { title, setTitle, handleTitleChange,
     createdAt, setCreatedAt, handleCreatedAtChange,
     content, setContent, handleContentChange,
     onSubmit
@@ -38,7 +38,7 @@ function EditArticle() {
     <div>
       <h1>Update Article</h1>
       <form onSubmit={onSubmit} className="container">
-        <input type="text" name="title" value={title} placeholder="title" onChange={handleTItleChange} />
+        <input type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />
         <input type="text" name="created_at" value={formatDate(createdAt)} disabled={true} placeholder="publishing date" onChange={handleCreatedAtChange} />
         <textarea name="content" rows={5} value={content} placeholder="content" onChange={handleContentChange}>
         </textarea>

@@ -1,8 +1,10 @@
-import { useState } from 'react'
-import { updateArticle } from '../../../api/articles'
 
-export function useEditForm() {
-  const [id] = useState("")
+import { useState } from 'react'
+import { createArticle } from '@/api/articles'
+import { useNavigate } from 'react-router-dom'
+
+export function useNewForm() {
+  const navigate = useNavigate()
   const [title, setTitle] = useState("")
   const [createdAt, setCreatedAt] = useState("")
   const [content, setContent] = useState("")
@@ -12,9 +14,6 @@ export function useEditForm() {
     setTitle(e.target.value)
   }
 
-  const handleCreatedAtChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCreatedAt(e.target.value)
-  }
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value)
@@ -25,10 +24,11 @@ export function useEditForm() {
 
 
     try {
-      const res = await updateArticle(id, title, content)
+      const res = await createArticle(title, content)
 
       if (res) {
-        console.log("updated")
+        console.log("published")
+        navigate("/admin")
       }
     } catch (err) {
       console.log("error: ", err)
@@ -37,7 +37,7 @@ export function useEditForm() {
 
   return {
     title, setTitle, handleTitleChange,
-    createdAt, setCreatedAt, handleCreatedAtChange,
+    createdAt, setCreatedAt,
     content, setContent, handleContentChange,
     onSubmit
   }
