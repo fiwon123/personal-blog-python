@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+}
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}

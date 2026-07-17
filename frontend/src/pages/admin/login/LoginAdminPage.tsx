@@ -24,7 +24,7 @@ function LoginAdmin() {
   }
 
   return (
-    <div className="container">
+    <div className="admin-login-container">
       <h1>Admin</h1>
       <form onSubmit={onSubmit} >
         <label>

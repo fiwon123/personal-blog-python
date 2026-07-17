@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom'
 import { Home } from './pages/HomePage'
-import Dashboard from './pages/admin/DashboardPage'
+import Dashboard from './pages/admin/dashboard/DashboardPage.tsx'
 import Article from './pages/ArticlePage'
 import EditArticle from './pages/admin/edit-articles/EditArticlePage.tsx'
 import NewArticle from './pages/admin/NewArticlePage'

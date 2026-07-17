@@ -11,6 +11,7 @@ export function AuthProvider({ children }: Props) {
     async function loadUser() {
       try {
         const res = await api.get("/v1/auth/me");
+        console.log(res.data.user)
         setUser(res.data.user);
       } catch {
         setUser(null);
