@@ -6,6 +6,7 @@ function NewArticle() {
   const today = new Date()
   const { title, handleTitleChange,
     content, handleContentChange,
+    errors,
     onSubmit
   } = useNewForm()
 
@@ -15,10 +16,12 @@ function NewArticle() {
     <div className="page">
       <h1>New Article</h1>
       <form onSubmit={onSubmit} className="container">
-        <input type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />
+        <input type="text" className={errors.title ? "inputError" : ""} name="title" value={title} placeholder="title" onChange={handleTitleChange} />
+        <p className="error">{errors.title}</p>
         <input type="text" name="created_at" value={formatDate(today.toISOString())} disabled={true} placeholder="publishing date" />
-        <textarea name="content" rows={5} value={content} placeholder="content" onChange={handleContentChange}>
+        <textarea className={errors.content ? "inputError" : ""} name="content" rows={5} value={content} placeholder="content" onChange={handleContentChange}>
         </textarea>
+        <p className="error">{errors.content}</p>
         <button type="submit" >Publish</button>
       </form>
     </div >
