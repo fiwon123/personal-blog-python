@@ -25,6 +25,7 @@ function Dashboard() {
         articles.map((article) => (
           <div className="dashboard-container" key={article.id}>
             < ArticleLink
+              id={article.id}
               title={article.title}
               createdAt={article.createdAt}
             />

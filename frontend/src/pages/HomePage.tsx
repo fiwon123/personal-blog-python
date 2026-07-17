@@ -19,6 +19,7 @@ export function Home() {
       {articles.map((article) => (
         < ArticleLink
           key={article.id}
+          id={article.id}
           title={article.title}
           createdAt={article.createdAt}
         />))}
