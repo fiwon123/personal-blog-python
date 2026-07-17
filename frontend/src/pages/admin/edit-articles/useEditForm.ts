@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { updateArticle } from '../../../api/articles'
+import { useNavigate } from 'react-router-dom'
 
 export function useEditForm() {
-  const [id] = useState("")
+  const navigate = useNavigate()
+  const [id, setID] = useState("")
   const [title, setTitle] = useState("")
   const [createdAt, setCreatedAt] = useState("")
   const [content, setContent] = useState("")
@@ -25,17 +27,17 @@ export function useEditForm() {
 
 
     try {
-      const res = await updateArticle(id, title, content)
+      await updateArticle(id, title, content)
 
-      if (res) {
-        console.log("updated")
-      }
+      console.log("updated")
+      navigate("/admin")
     } catch (err) {
       console.log("error: ", err)
     }
   }
 
   return {
+    setID,
     title, setTitle, handleTitleChange,
     createdAt, setCreatedAt, handleCreatedAtChange,
     content, setContent, handleContentChange,

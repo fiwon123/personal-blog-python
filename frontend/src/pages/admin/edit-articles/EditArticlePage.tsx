@@ -6,7 +6,9 @@ import { formatDate } from "../../../utils/formatDate";
 
 function EditArticle() {
   const { id } = useParams<{ id: string }>()
-  const { title, setTitle, handleTitleChange,
+  const {
+    setID,
+    title, setTitle, handleTitleChange,
     createdAt, setCreatedAt, handleCreatedAtChange,
     content, setContent, handleContentChange,
     onSubmit
@@ -23,6 +25,7 @@ function EditArticle() {
       try {
         const article = await getSingleArticle(id)
 
+        setID(id)
         setTitle(article.title)
         setCreatedAt(article.createdAt)
         setContent(article.content)
@@ -32,7 +35,7 @@ function EditArticle() {
     }
 
     fetchArticle(id)
-  }, [id, setContent, setTitle, setCreatedAt])
+  }, [id, setContent, setID, setTitle, setCreatedAt])
 
   return (
     <div>

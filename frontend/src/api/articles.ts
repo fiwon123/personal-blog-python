@@ -36,10 +36,16 @@ export async function createArticle(title: string, content: string): Promise<boo
   return res.data
 }
 
-export async function updateArticle(id: string, title: string, content: string): Promise<boolean> {
-  const res = await api.patch(`/v1/articles/${id}`, { title, content })
+export async function updateArticle(id: string, title?: string, content?: string) {
 
-  return res.data
+  console.log("id:", id)
+  const payload: { title?: string; content?: string } = {};
+
+  if (title !== undefined) payload.title = title;
+  if (content !== undefined) payload.content = content;
+
+  await api.patch(`/v1/articles/${id}`, payload)
+
 }
 
 export async function deleteArticle(id: number): Promise<boolean> {

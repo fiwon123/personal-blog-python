@@ -24,7 +24,7 @@ class ArticleService:
     def create(self, title: str, content: str):
         return self.repo.create(title, content)
 
-    def update(self, id: int, data: dict):
+    async def update(self, id: int, data: dict):
         return self.repo.update(id, data)
 
     def delete(self, id: int):

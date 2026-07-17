@@ -69,14 +69,16 @@ async def create_article(
     return article
 
 
-@router.put("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch("/{id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_article(
     id: int,
     request: UpdateArticleRequest,
     service: ArticleService = Depends(get_article_service),
 ):
+
     data = request.model_dump(exclude_unset=True)
-    result = service.update(id, data)
+
+    result = await service.update(id, data)
 
     if result is None:
         raise HTTPException(status_code=HTTP_404_NOT_FOUND,
