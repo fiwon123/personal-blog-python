@@ -38,7 +38,7 @@ function EditArticle() {
   }, [id, setContent, setID, setTitle, setCreatedAt])
 
   return (
-    <div>
+    <div className="page">
       <h1>Update Article</h1>
       <form onSubmit={onSubmit} className="container">
         <input type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />

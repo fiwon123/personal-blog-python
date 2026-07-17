@@ -12,7 +12,7 @@ function NewArticle() {
 
 
   return (
-    <div>
+    <div className="page">
       <h1>New Article</h1>
       <form onSubmit={onSubmit} className="container">
         <input type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />

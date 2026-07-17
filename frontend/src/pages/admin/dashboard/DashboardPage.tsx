@@ -16,10 +16,10 @@ function Dashboard() {
   }, [])
 
   return (
-    <div>
+    <div className='page'>
       <div className="header">
         <h1>Personal Blog</h1>
-        <button onClick={() => navigate('/new')}>+ Add</button>
+        <a onClick={() => navigate('/new')}>+ Add</a>
       </div>
       {
         articles.map((article) => (

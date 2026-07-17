@@ -24,7 +24,7 @@ function LoginAdmin() {
   }
 
   return (
-    <div className="admin-login-container">
+    <div className="admin-login-container page">
       <h1>Admin</h1>
       <form onSubmit={onSubmit} >
         <label>
@@ -37,9 +37,9 @@ function LoginAdmin() {
           <input name="password" value={password} onChange={handlePasswordChange} />
         </label>
 
-        <input type='submit' disabled={loading} value="Submit" />
+        <button type='submit' disabled={loading}  >Login</button>
       </form>
-    </div>
+    </div >
   )
 }
 

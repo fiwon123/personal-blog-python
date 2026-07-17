@@ -1,5 +1,6 @@
 import { formatDate } from "../utils/formatDate";
 import { Link } from "react-router-dom";
+import './ArticleLink.css'
 
 type ArticleLinkProps = {
   id: number;
@@ -11,9 +12,12 @@ function ArticleLink({ id, title, createdAt }: ArticleLinkProps) {
 
 
   return (
-    <Link to={`/article/${id}`} style={{ textDecoration: "none" }}>
-      {title} - {formatDate(createdAt)}
-    </Link>
+    <div className="format-date">
+      <Link to={`/article/${id}`} style={{ textDecoration: "none" }}>
+        {title}
+      </Link>
+      <div>{formatDate(createdAt)}</div>
+    </div>
   )
 }
 

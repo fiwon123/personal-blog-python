@@ -4,16 +4,15 @@
   align-items: center;
 }
 
-.header h1 {
-  margin: 0;
-}
 .dashboard-container {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  margin-bottom: 30px
+
 }
 
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 16px;
 }

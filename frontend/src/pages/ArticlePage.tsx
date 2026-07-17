@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 import { getSingleArticle } from '../api/articles';
 import { formatDate } from '../utils/formatDate';
+import './Article.css'
+
 function Article() {
   const { id } = useParams<{ id: string }>();
   const [title, setTitle] = useState('')
@@ -28,10 +30,10 @@ function Article() {
 
 
   return (
-    <div>
+    <div className="page">
       <h1>{title}</h1>
-      <h3>{formatDate(createdAt)}</h3>
-      <div>
+      <h3 className="date">{formatDate(createdAt)}</h3>
+      <div className="content">
         {content}
       </div>
     </div>

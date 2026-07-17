@@ -1,0 +1,6 @@
+.format-date{
+  display: flex;
+  font-size: 28px;
+  margin-bottom: 30px;
+  justify-content: space-between;
+}

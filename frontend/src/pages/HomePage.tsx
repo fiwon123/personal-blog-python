@@ -2,7 +2,7 @@ import ArticleLink from "../components/ArticleLink";
 import { useEffect, useState } from 'react'
 import { getArticles } from "../api/articles";
 import type { ArticleListItem } from "../types/articles";
-
+import './Home.css'
 
 export function Home() {
   const [articles, setArticles] = useState<ArticleListItem[]>([])
@@ -14,16 +14,18 @@ export function Home() {
   }, [])
 
   return (
-    <div>
-      <h1>Personal Blog</h1>
-      {articles.map((article) => (
-        < ArticleLink
-          key={article.id}
-          id={article.id}
-          title={article.title}
-          createdAt={article.createdAt}
-        />))}
-    </div>
+    <div className="page">
+      <h1 >Personal Blog</h1>
+      <div className="home-container" >
+        {articles.map((article) => (
+          < ArticleLink
+            key={article.id}
+            id={article.id}
+            title={article.title}
+            createdAt={article.createdAt}
+          />))}
+      </div>
+    </div >
   )
 }
 
