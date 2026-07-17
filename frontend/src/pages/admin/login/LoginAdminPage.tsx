@@ -1,27 +1,14 @@
-import { useUsername, usePassword } from './useLoginForm';
-import { useNavigate } from 'react-router-dom'
-import "./LoginAdmin.css"
+import { useLoginForm } from './useLoginForm';
 import { useAuth } from '../../../contexts/AuthContext';
+import "./LoginAdmin.css"
 
 function LoginAdmin() {
-  const { username, handleUsernameChange } = useUsername()
-  const { password, handlePasswordChange } = usePassword()
-  const navigate = useNavigate()
-  const { login, loading } = useAuth()
+  const { username, handleUsernameChange,
+    password, handlePasswordChange,
+    onSubmit, errors,
+  } = useLoginForm()
+  const { loading } = useAuth()
 
-  const onSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    try {
-      await login(username, password)
-
-      navigate('/admin')
-    } catch (err) {
-      console.log("login error: ", err)
-    }
-
-
-  }
 
   return (
     <div className="admin-login-container page">
@@ -29,13 +16,15 @@ function LoginAdmin() {
       <form onSubmit={onSubmit} >
         <label>
           Username:
-          <input name="username" value={username} onChange={handleUsernameChange} />
+          <input className={errors.username ? "inputErrors" : ""} name="username" value={username} onChange={handleUsernameChange} />
         </label>
+        <p className="error">{errors.username}</p>
 
         <label>
           Password:
-          <input name="password" value={password} onChange={handlePasswordChange} />
+          <input className={errors.password ? "inputErrors" : ""} name="password" value={password} onChange={handlePasswordChange} />
         </label>
+        <p className="error">{errors.password}</p>
 
         <button type='submit' disabled={loading}  >Login</button>
       </form>

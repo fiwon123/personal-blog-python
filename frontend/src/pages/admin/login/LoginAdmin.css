@@ -18,3 +18,8 @@
   flex-direction: column;
   gap: 4px;
 }
+
+ p {
+  text-align: left;
+  margin-bottom: 20px;
+}
