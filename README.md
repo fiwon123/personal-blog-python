@@ -48,3 +48,9 @@ Note: When using Docker Compose the compose file already configures sensible def
   username: admin
   password: admin
   ```
+
+## nix
+
+- I decided to start use nix for learning, then if you want to use the same development tools just run `nix develop` from the root folder.
+
+The idea was to use it for building and run using kubernetes.
