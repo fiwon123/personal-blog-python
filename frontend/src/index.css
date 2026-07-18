@@ -40,7 +40,7 @@ p {
 }
 
 .page {
-  width: 50%;
+  width: 45%;
   min-height: 700px;
   height: 100%;
   margin: 0 auto;
@@ -90,9 +90,13 @@ textarea{
   resize: none;
 }
 
+label {
+  font-size: 18px;
+}
+
 .error {
   color: red;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   margin-top: 4px;
 }
 

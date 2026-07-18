@@ -44,11 +44,11 @@ function EditArticle() {
       <h1>Update Article</h1>
       <form onSubmit={onSubmit} className="container">
         <input className={errors.title ? "inputError" : ""} type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />
-        <p className="error">{errors.title}</p>
+        {errors.title ? <p className="error">{errors.title}</p> : null}
         <input type="text" name="created_at" value={formatDate(createdAt)} disabled={true} placeholder="publishing date" onChange={handleCreatedAtChange} />
-        <textarea className={errors.content ? "inputError" : ""} name="content" rows={5} value={content} placeholder="content" onChange={handleContentChange}>
+        <textarea className={errors.content ? "inputError" : ""} name="content" rows={15} value={content} placeholder="content" onChange={handleContentChange}>
         </textarea>
-        <p className="error">{errors.content}</p>
+        {errors.content ? <p className="error">{errors.content}</p> : null}
         <button type="submit" >
           Update
         </button>

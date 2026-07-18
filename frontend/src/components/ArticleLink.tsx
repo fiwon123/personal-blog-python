@@ -16,7 +16,7 @@ function ArticleLink({ id, title, createdAt }: ArticleLinkProps) {
       <Link to={`/article/${id}`} style={{ textDecoration: "none" }}>
         {title}
       </Link>
-      <div>{formatDate(createdAt)}</div>
+      {createdAt != "" ? <div>{formatDate(createdAt)}</div> : null}
     </div>
   )
 }

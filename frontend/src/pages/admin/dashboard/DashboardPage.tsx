@@ -27,7 +27,7 @@ function Dashboard() {
             < ArticleLink
               id={article.id}
               title={article.title}
-              createdAt={article.createdAt}
+              createdAt=""
             />
 
             <div className="actions">

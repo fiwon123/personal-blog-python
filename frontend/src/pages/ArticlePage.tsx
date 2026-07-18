@@ -33,7 +33,7 @@ function Article() {
     <div className="page">
       <h1>{title}</h1>
       <h3 className="date">{formatDate(createdAt)}</h3>
-      <div className="content">
+      <div className="content-break">
         {content}
       </div>
     </div>
