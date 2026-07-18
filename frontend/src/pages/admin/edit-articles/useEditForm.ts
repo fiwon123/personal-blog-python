@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { updateArticle } from '../../../api/articles'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 
 export function useEditForm() {
@@ -9,7 +10,7 @@ export function useEditForm() {
   const [title, setTitle] = useState("")
   const [createdAt, setCreatedAt] = useState("")
   const [content, setContent] = useState("")
-  const [errors, setErrors] = useState({ title: "", content: "" })
+  const [errors, setErrors] = useState({ title: "", content: "", server: "" })
 
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,8 +73,17 @@ export function useEditForm() {
 
       console.log("updated")
       navigate("/admin")
-    } catch (err) {
+    } catch (err: unknown) {
       console.log("error: ", err)
+
+
+      if (axios.isAxiosError(err)) {
+        newErrors.server = err.response?.data?.detail || "Something went wrong";
+      } else {
+        newErrors.server = "Something went wrong";
+      }
+
+      setErrors(newErrors)
     }
   }
 

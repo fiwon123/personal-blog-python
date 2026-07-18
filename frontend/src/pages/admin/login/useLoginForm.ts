@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext';
+import axios from "axios";
 
 export function useLoginForm() {
   const navigate = useNavigate()
   const { login } = useAuth()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [errors, setErrors] = useState({ username: "", password: "" })
+  const [errors, setErrors] = useState({ username: "", password: "", server: "" })
 
   const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newUsername = e.target.value
@@ -66,8 +67,15 @@ export function useLoginForm() {
       await login(username, password)
 
       navigate('/admin')
-    } catch (err) {
+    } catch (err: unknown) {
       console.log("login error: ", err)
+      if (axios.isAxiosError(err)) {
+        newErrors.server = err.response?.data?.detail || "Something went wrong";
+      } else {
+        newErrors.server = "Something went wrong";
+      }
+
+      setErrors(newErrors)
     }
 
 

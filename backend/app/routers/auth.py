@@ -72,7 +72,8 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]):
         or admin["password"] != form_data.password
     ):
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="username and/or password are invalid",
         )
 
     token = create_access_token(

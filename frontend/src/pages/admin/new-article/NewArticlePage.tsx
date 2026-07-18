@@ -15,6 +15,7 @@ function NewArticle() {
   return (
     <div className="page">
       <h1>New Article</h1>
+      {errors.server ? <p className="error">{errors.server}</p> : null}
       <form onSubmit={onSubmit} className="container">
         <input type="text" className={errors.title ? "inputError" : ""} name="title" value={title} placeholder="title" onChange={handleTitleChange} />
         {errors.title ? <p className="error">{errors.title}</p> : null}

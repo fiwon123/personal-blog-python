@@ -13,18 +13,19 @@ function LoginAdmin() {
   return (
     <div className="admin-login-container page">
       <h1>Admin</h1>
+      {errors.server ? <p className="error">{errors.server}</p> : null}
       <form onSubmit={onSubmit} >
         <label>
           Username:
           <input className={errors.username ? "inputErrors" : ""} name="username" value={username} onChange={handleUsernameChange} />
         </label>
-        <p className="error">{errors.username}</p>
+        {errors.username ? <p className="error">{errors.username}</p> : null}
 
         <label>
           Password:
           <input className={errors.password ? "inputErrors" : ""} name="password" value={password} onChange={handlePasswordChange} />
         </label>
-        <p className="error">{errors.password}</p>
+        {errors.password ? <p className="error">{errors.password}</p> : null}
 
         <button type='submit' disabled={loading}  >Login</button>
       </form>

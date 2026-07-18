@@ -42,6 +42,7 @@ function EditArticle() {
   return (
     <div className="page">
       <h1>Update Article</h1>
+      {errors.server ? <p className="error">{errors.server}</p> : null}
       <form onSubmit={onSubmit} className="container">
         <input className={errors.title ? "inputError" : ""} type="text" name="title" value={title} placeholder="title" onChange={handleTitleChange} />
         {errors.title ? <p className="error">{errors.title}</p> : null}
