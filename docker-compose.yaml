@@ -14,7 +14,9 @@ services:
     depends_on:
       - postgres
     restart: unless-stopped
-  
+    networks:
+      - backend-net
+
   frontend:
     build:
       context: ./frontend
@@ -32,7 +34,7 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
- 
+
   postgres:
     image: postgres:15
     container_name: postgres
@@ -47,5 +49,13 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    networks:
+      - backend-net
+
 volumes:
   postgres_data:
+
+networks:
+  backend-net:
+    name: backend-net
+    driver: bridge

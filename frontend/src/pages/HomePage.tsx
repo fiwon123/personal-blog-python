@@ -1,32 +1,35 @@
 import ArticleLink from "../components/ArticleLink";
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 import { getArticles } from "../api/articles";
 import type { ArticleListItem } from "../types/articles";
-import './Home.css'
+import "./Home.css";
 
 export function Home() {
-  const [articles, setArticles] = useState<ArticleListItem[]>([])
+  console.log("url: ", import.meta.env.VITE_API_URL);
+
+  const [articles, setArticles] = useState<ArticleListItem[]>([]);
 
   useEffect(() => {
     getArticles()
       .then(setArticles)
-      .catch(error => console.log('error:', error))
-  }, [])
+      .catch((error) => console.log("error:", error));
+  }, []);
 
   return (
     <div className="page">
-      <h1 >Personal Blog</h1>
-      <div className="home-container" >
+      <h1>Personal Blog</h1>
+      <div className="home-container">
         {articles.map((article) => (
-          < ArticleLink
+          <ArticleLink
             key={article.id}
             id={article.id}
             title={article.title}
             createdAt={article.createdAt}
-          />))}
+          />
+        ))}
       </div>
-    </div >
-  )
+    </div>
+  );
 }
 
 export default Home;
