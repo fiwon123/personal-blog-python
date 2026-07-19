@@ -8,6 +8,9 @@ clean:
 	rm -f result-backend 
 	rm -f result-backend-image
 
+clean-nix:
+	nix store gc
+
 build-back:
 	nix build .#backend --out-link result-backend 
 
@@ -24,12 +27,25 @@ paths:
 	nix build .#backend --out-link result-backend --print-out-paths
 	nix build .#frontend --out-link result-frontend --print-out-paths
 
-run-all: run-back run-front
+run-all: run-postgres run-back run-front
+
+run-postgres:
+	docker compose up -d postgres
 
 run-back:
 	docker load -i result-backend-image
-	docker run --network backend-net --env-file "./backend/.env" --rm -p 8000:8000 personal-blog-python-backend-nix:0.1.0
+	docker run -d --name backend --network backend-net --env-file "./backend/.env" --rm -p 8000:8000 personal-blog-python-backend-nix:0.1.0
 
 run-front:
 	docker load -i result-frontend-image
-	docker run --rm -p 5173:80 personal-blog-python-frontend-nix:0.1.0
+	docker run -d --name frontend --rm -p 5173:80 personal-blog-python-frontend-nix:0.1.0
+
+stop:
+	docker compose down  postgres
+	docker stop  backend
+	docker stop  frontend
+
+remove: 
+	docker compose down  postgres
+	docker rm -f  backend
+	docker rm -f  frontend
