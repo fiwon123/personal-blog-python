@@ -19,7 +19,7 @@ if not SECRET_KEY:
     raise RuntimeError("SECRET_KEY environment variable must be set")
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 
-oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/v1/auth/token")
+oauth2_bearer = OAuth2PasswordBearer(tokenUrl="/v1/auth/login")
 
 router = APIRouter(
     prefix="/auth",

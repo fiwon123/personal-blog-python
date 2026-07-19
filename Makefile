@@ -1,6 +1,12 @@
-build:
-	nix build .#backend --out-link result-backend 
-	nix build .#frontend --out-link result-frontend 
+image: clean image-front image-back
+
+build: clean build-back build-front
+
+clean: 
+	rm -f result-frontend 
+	rm -f result-frontend-image
+	rm -f result-backend 
+	rm -f result-backend-image
 
 build-back:
 	nix build .#backend --out-link result-backend 
@@ -8,12 +14,7 @@ build-back:
 build-front:
 	nix build .#frontend --out-link result-frontend 
 
-image:
-	nix build .#backendImage --out-link result-backend-image
-	nix build .#frontendImage --out-link result-frontend-image 
-
 image-front:
-	rm -f result-frontend-image
 	nix build .#frontendImage --out-link result-frontend-image
 
 image-back:
@@ -22,6 +23,8 @@ image-back:
 paths:
 	nix build .#backend --out-link result-backend --print-out-paths
 	nix build .#frontend --out-link result-frontend --print-out-paths
+
+run-all: run-back run-front
 
 run-back:
 	docker load -i result-backend-image

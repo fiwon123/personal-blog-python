@@ -22,11 +22,13 @@ export function AuthProvider({ children }: Props) {
   }, []);
 
   const login = async (username: string, password: string) => {
-    const res = await api.post(
-      "/v1/auth/login",
-      { username, password },
-      { headers: { "Content-Type": "application/x-www-form-urlencoded" } },
-    );
+    const form = new URLSearchParams();
+    form.append("username", username);
+    form.append("password", password);
+
+    const res = await api.post("/v1/auth/login", form, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    });
 
     localStorage.setItem("token", res.data.token);
     setUser(res.data.user);
