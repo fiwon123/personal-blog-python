@@ -13,6 +13,7 @@ image:
 	nix build .#frontendImage --out-link result-frontend-image 
 
 image-front:
+	rm -f result-frontend-image
 	nix build .#frontendImage --out-link result-frontend-image
 
 image-back:

@@ -61,11 +61,13 @@
           npmDepsHash = "sha256-SpFGarQ2SC/3YP7ZMcX5ZqRp9Xwak7SL8olHIOgN6yw=";
           npmBuildScript = "build";
 
-          # VITE_API_URL = "https://api.example.com";
-          
+          preBuild = ''
+            cp ${./frontend/.env.vite} .env
+          '';
+        
           installPhase = ''
-            mkdir -p $out/
-            cp -r . $out/
+            mkdir -p $out
+            cp -r dist $out/
           '';
         };
 

@@ -5,8 +5,6 @@ import type { ArticleListItem } from "../types/articles";
 import "./Home.css";
 
 export function Home() {
-  console.log("url: ", import.meta.env.VITE_API_URL);
-
   const [articles, setArticles] = useState<ArticleListItem[]>([]);
 
   useEffect(() => {
