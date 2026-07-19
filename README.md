@@ -35,6 +35,7 @@ Open the frontend at http://localhost:5173 and the API docs at http://localhost:
 
 in Root Folder and Backend folder you need to change `.env.example` to `.env` (root folder and backend/ folder )
 
+- Frontend, keep `frontend/.env.vite` file. Don't need to change it.
 - Backend (see `backend/.env` or Docker env in `docker-compose.yaml`):
   - `POSTGRES_*` — Postgres connection string
   - `SECRET_KEY` - JWT key for generate json token (you can use any jwt generator)
