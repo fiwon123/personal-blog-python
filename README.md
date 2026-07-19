@@ -49,8 +49,10 @@ Note: When using Docker Compose the compose file already configures sensible def
   password: admin
   ```
 
-## nix
+## Nix
 
-- I decided to start use nix for learning, then if you want to use the same development tools just run `nix develop` from the root folder.
+- You can set tools for the project using this command following command `nix develop` on the root folder. It loads a shell for backend and frontend development. You can check running either `which python` or `which npm` for example and see output `nix/store/...` (You can use nix command in any subfolder as it will search for flake.nix file )
+- You can build images using either `make` or `make image` it will build and generate images for each project frontend/backend in the current folder. And after just use `make run-all` amd `make remove` to load and stops the project. (must run make in the root folder)
+- Docker compose creates images for frontend/backend using a pre image. While nix is creates images using only the necessary dependencies and creates an image for running. ( docker compose command can be used in subfolder as nix command )
 
-The idea was to use it for building and run using kubernetes.
+NOTE: postgres db is the only container used by docker compose.
