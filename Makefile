@@ -41,11 +41,11 @@ run-front:
 	docker run -d --name frontend --rm -p 5173:80 personal-blog-python-frontend-nix:0.1.0
 
 stop:
-	docker compose down  postgres
 	docker stop  backend
 	docker stop  frontend
+	docker compose down
 
 remove: 
-	docker compose down  postgres
 	docker rm -f  backend
 	docker rm -f  frontend
+	docker compose down
