@@ -41,7 +41,6 @@
 
         python = pkgs.python314;
 
-        # The uv workspace (pyproject.toml + uv.lock) lives in backend/.
         workspace = uv2nix.lib.workspace.loadWorkspace { workspaceRoot = ./backend; };
 
         overlay = workspace.mkPyprojectOverlay { sourcePreference = "wheel"; };
@@ -81,7 +80,7 @@
           version = "0.1.0";
           src = ./frontend;
 
-          npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+          npmDepsHash = "sha256-SpFGarQ2SC/3YP7ZMcX5ZqRp9Xwak7SL8olHIOgN6yw=";
           npmBuildScript = "build";
         };
 
