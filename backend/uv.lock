@@ -359,12 +359,6 @@ wheels = [
 ]
 
 [[package]]
-name = "jose"
-version = "1.0.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/01/3d/832caa69cd0d3be2d608d8290be2221072669aa88e87690837f6b31c480f/jose-1.0.0.tar.gz", hash = "sha256:8436c3617cd94e1ba97828fbb1ce27c129f66c78fb855b4bb47e122b5f345fba", size = 9153, upload-time = "2015-11-13T10:52:21.506Z" }
-
-[[package]]
 name = "mako"
 version = "1.3.12"
 source = { registry = "https://pypi.org/simple" }
@@ -430,14 +424,12 @@ wheels = [
 [[package]]
 name = "personal-blog-python"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
     { name = "alembic" },
     { name = "dotenv" },
     { name = "fastapi", extra = ["standard"] },
-    { name = "jose" },
     { name = "psycopg2-binary" },
-    { name = "pyfast" },
     { name = "python-jose" },
     { name = "sqlalchemy" },
 ]
@@ -447,9 +439,7 @@ requires-dist = [
     { name = "alembic", specifier = ">=1.18.5" },
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.139.0" },
-    { name = "jose", specifier = ">=1.0.0" },
     { name = "psycopg2-binary", specifier = ">=2.9.12" },
-    { name = "pyfast", extras = ["standard"], specifier = ">=4.17.1" },
     { name = "python-jose", specifier = ">=3.5.0" },
     { name = "sqlalchemy", specifier = ">=2.0.51" },
 ]
@@ -568,17 +558,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/5c/b5/8f48e906c3e0205276e8bd8cb7512217a87b2685304d64be27cad5b3019f/pydantic_settings-2.14.2.tar.gz", hash = "sha256:c19dd64b19097f1de80184f0cc7b0272a13ae6e170cbf240a3e27e381ed14a5f", size = 237700, upload-time = "2026-06-19T13:44:56.324Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/77/c1/6e422f34e569cf8e18df68d1939c81c099d2b61e4f7d9621c8a77560799c/pydantic_settings-2.14.2-py3-none-any.whl", hash = "sha256:a20c97b37910b6550d5ea50fbcc2d4187defe58cd57070b73863d069419c9440", size = 61715, upload-time = "2026-06-19T13:44:55.02Z" },
-]
-
-[[package]]
-name = "pyfast"
-version = "4.17.1"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/49/65/e80ef98519a353f1da491bf9c7b42d0523fe2c6645197c7df5a9a4e3a522/pyfast-4.17.1-cp36-abi3-macosx_10_13_x86_64.whl", hash = "sha256:a2f5cf94deb0d530065d7b2ac871731b4e423f5cde506a384b9ed8bec61c3f02", size = 70691767, upload-time = "2026-03-06T09:11:41.165Z" },
-    { url = "https://files.pythonhosted.org/packages/5e/f5/f59700cc621640e7d122d6947ba1b09a925b7860ca18f57682d5515939d6/pyfast-4.17.1-cp36-abi3-macosx_11_0_arm64.whl", hash = "sha256:423c6f8acab447c7758691f46cdee89f1dc29c645d7de9e4ccfd41f8b97757c2", size = 51882161, upload-time = "2026-03-06T08:56:11.388Z" },
-    { url = "https://files.pythonhosted.org/packages/80/80/849d17575a9f64045dbf86d32d94fdc73ab3a07a681efbff72c584752d0b/pyfast-4.17.1-cp36-abi3-manylinux1_x86_64.whl", hash = "sha256:b0d1db8bae7be62939d50b853daac9e7df9bb95288e31e64aa60134f2669f5ae", size = 85273006, upload-time = "2026-03-06T09:11:10.398Z" },
-    { url = "https://files.pythonhosted.org/packages/60/29/252e8bff08d9725e9b3c97499a0b5944a9c123535b3351c4568b2838eb4b/pyfast-4.17.1-cp36-abi3-win_amd64.whl", hash = "sha256:490159f7276b45ea75dfa8f22edeacf72094eb2269b2d4a0b8dc1e9865a2abdd", size = 76582128, upload-time = "2026-03-06T09:18:25.397Z" },
 ]
 
 [[package]]
