@@ -34,6 +34,8 @@ services:
     depends_on:
       - backend
     restart: unless-stopped
+    networks:
+      - backend-net
 
   postgres:
     image: postgres:15
