@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+  namespace: blog
+spec:
+  template:
+    spec:
+      containers:
+        - name: migrate
+          image: result-backend-image:migrate-fix1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: backend-secret
+          env:
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_ALEMBIC_HOST
+              value: postgres
+          workingDir: /app
+          command: ["alembic", "-c", "/app/alembic.ini", "upgrade", "head"]
+      restartPolicy: Never
+  backoffLimit: 1

@@ -68,6 +68,12 @@
           installPhase = ''
             mkdir -p $out
             cp -r dist $out/
+
+            mkdir -p $out/app
+            cp -r ${./backend}/alembic $out/app/
+            cp ${./backend}/alembic.ini $out/app/alembic.ini
+            # copy optional env file if present
+            if [ -f ${./backend}/.env ]; then cp ${./backend}/.env $out/app/.env; fi
           '';
         };
 
@@ -105,6 +111,12 @@
               pkgs.glibc
               pkgs.cacert
               pkgs.openssl
+              (pkgs.runCommand "backend-app-files" { } ''
+                mkdir -p $out/app
+                cp -r ${./backend}/alembic $out/app/
+                cp ${./backend}/alembic.ini $out/app/alembic.ini
+                if [ -f ${./backend}/.env ]; then cp ${./backend}/.env $out/app/.env; fi
+              '')
             ];
           };
 

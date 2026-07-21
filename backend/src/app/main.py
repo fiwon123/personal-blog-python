@@ -1,6 +1,9 @@
 from fastapi import APIRouter, FastAPI
 from .routers import articles, auth
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_env 
+
 
 app = FastAPI(
     title="Blog API",
@@ -9,9 +12,11 @@ app = FastAPI(
     docs_url="/docs",
 )
 
+load_env()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=os.getenv("ALLOW_ORIGINS", "http://localhost:5173"),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

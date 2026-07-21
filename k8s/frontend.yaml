@@ -4,7 +4,7 @@ metadata:
   name: frontend
   namespace: blog
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: frontend
@@ -15,12 +15,35 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: PUT_IMAGE_HERE
+          image: result-frontend-image:latest
+          envFrom:
+            - configMapRef:
+                name: frontend-config
+          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 5173
-          end:
+            - containerPort: 80
+          env:
             - name: VITE_API_URL
               value: http://backend:8000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -32,4 +55,27 @@ spec:
     app: frontend
   ports:
     - port: 5173
-      targetPort: 5173
+      targetPort: 80
+      nodePort: 30073
+  type: NodePort
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: frontend-hpa
+  namespace: blog
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
