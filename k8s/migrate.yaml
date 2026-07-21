@@ -8,7 +8,7 @@ spec:
     spec:
       containers:
         - name: migrate
-          image: result-backend-image:migrate-fix1
+          image: result-backend-image:latest
           imagePullPolicy: IfNotPresent
           envFrom:
             - secretRef:

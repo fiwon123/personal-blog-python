@@ -2,7 +2,7 @@ from fastapi import APIRouter, FastAPI
 from .routers import articles, auth
 from fastapi.middleware.cors import CORSMiddleware
 import os
-from dotenv import load_env 
+from dotenv import load_dotenv
 
 
 app = FastAPI(
@@ -12,11 +12,15 @@ app = FastAPI(
     docs_url="/docs",
 )
 
-load_env()
+load_dotenv()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.getenv("ALLOW_ORIGINS", "http://localhost:5173"),
+    allow_origins=[
+        origin.strip().strip('"').strip("'")
+        for origin in os.getenv("ALLOW_ORIGINS", "http://localhost:5173").split(",")
+        if origin.strip().strip('"').strip("'")
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
