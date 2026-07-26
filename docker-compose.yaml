@@ -6,8 +6,6 @@ services:
     container_name: migrate
     env_file:
       - ./backend/.env
-    environment:
-      - POSTGRES_ALEMBIC_HOST=postgres
     volumes:
       - ./backend:/app
       - /app/.venv

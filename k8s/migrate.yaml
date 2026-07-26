@@ -6,6 +6,17 @@ metadata:
 spec:
   template:
     spec:
+      initContainers:
+        - name: wait-for-postgres
+          image: postgres:15
+          command:
+            - sh
+            - -c
+            - |
+              until pg_isready -h postgres -p 5432; do
+                echo "waiting for postgres..."
+                sleep 2
+              done
       containers:
         - name: migrate
           image: result-backend-image:latest
@@ -13,11 +24,6 @@ spec:
           envFrom:
             - secretRef:
                 name: backend-secret
-          env:
-            - name: POSTGRES_HOST
-              value: postgres
-            - name: POSTGRES_ALEMBIC_HOST
-              value: postgres
           workingDir: /app
           command: ["alembic", "-c", "/app/alembic.ini", "upgrade", "head"]
       restartPolicy: Never

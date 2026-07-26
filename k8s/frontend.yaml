@@ -16,15 +16,9 @@ spec:
       containers:
         - name: frontend
           image: result-frontend-image:latest
-          envFrom:
-            - configMapRef:
-                name: frontend-config
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
-          env:
-            - name: VITE_API_URL
-              value: http://backend:8000
           readinessProbe:
             httpGet:
               path: /

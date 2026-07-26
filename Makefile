@@ -1,3 +1,6 @@
+kube-first: clean start-kube kube image load load-minikube
+	kubectl apply -f ./k8s
+
 image: clean image-front image-back
 
 build: clean build-back build-front
@@ -64,10 +67,11 @@ remove:
 	docker rm -f  frontend
 	docker compose down
 
-
+start-kube:
+	minikube start
+	kubectl delete all --all -n blog
+	kubectl apply -f ./k8s/namespace.yaml
+	
 kube:
 	kubectl delete secret backend-secret -n blog --ignore-not-found
-	kubectl delete configmap frontend-config -n blog --ignore-not-found
-
 	kubectl create secret generic backend-secret --from-env-file=./backend/.env -n blog
-	kubectl create configmap frontend-config --from-env-file=./frontend/.env -n blog
