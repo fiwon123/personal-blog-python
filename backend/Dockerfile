@@ -11,9 +11,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends build-essential
 RUN pip install uv --no-cache-dir
 
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev
+RUN uv sync --frozen --no-dev --no-install-project
 
 COPY . .
+RUN uv sync --frozen --no-dev
 
 EXPOSE 8000
 

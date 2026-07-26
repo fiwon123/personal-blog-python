@@ -33,9 +33,11 @@ Open the frontend at http://localhost:5173 and the API docs at http://localhost:
 
 ## Environment variables
 
-in Root Folder and Backend folder you need to change `.env.example` to `.env` (root folder and backend/ folder )
+in Root Folder and Backend folder you need to change `.env.example` to `.env` (root folder, frontend/ and backend/ folder )
 
-- Frontend, keep `frontend/.env.vite` file. Don't need to change it.
+- Frontend, (see `frontend/.env` or Docker env in `docker-compose.yaml`):
+  - Keep `frontend/.env.vite` file. Don't need to change it
+  - Don't need to change `VITE_API_URL` on `frontend/.env` if using Docker Compose
 - Backend (see `backend/.env` or Docker env in `docker-compose.yaml`):
   - `POSTGRES_*` — Postgres connection string
   - `SECRET_KEY` - JWT key for generate json token (you can use any jwt generator)
