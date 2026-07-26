@@ -59,3 +59,12 @@ Note: When using Docker Compose the compose file already configures sensible def
 - Docker compose creates images for frontend/backend using a pre image. While nix is creates images using only the necessary dependencies and creates an image for running. ( docker compose command can be used in subfolder as nix command )
 
 NOTE: postgres db is the only container used by docker compose.
+
+## Kubernetes (k8s)
+
+The project has a k8s/ folder to simulate a real deploymen. As this build images for backend and frontend you need to use nix package manager and minikube to orchestrate it:
+- kubernetes: https://kubernetes.io/releases/download/
+- nix: https://nixos.org/download/
+- minikube: https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download
+
+Then after installing it just run `make` to run `kube-first` recipe from Makefile.
