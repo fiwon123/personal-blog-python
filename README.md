@@ -71,7 +71,7 @@ The project has a k8s/ folder to simulate a real deploymen. As this build images
 
 Then after installing it just run `make` to run `kube-first` recipe from Makefile.
 
-To see you minikube IP (normally is `192.168.49.2`) just run `minikube ip` and use it to access you frontend and backend:
+To see your minikube IP (normally is `192.168.49.2`) just run `minikube ip` and use it to access you frontend and backend:
 - frontend: http://<minikube_ip>/30073 (http://192.168.49.2/30073)
 - admin: http://<minikube_ip>/30073/admin  (http://192.168.49.2/30073/admin)
 - backend: http://<minikube_ip>/30080/docs  (http://192.168.49.2/30080/docs)
