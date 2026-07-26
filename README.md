@@ -29,7 +29,9 @@ docker compose up --build
 
 This starts the backend (http://localhost:8000) and the frontend (http://localhost:5173) + Postgres
 
-Open the frontend at http://localhost:5173 and the API docs at http://localhost:8000/docs.
+Open the frontend at http://localhost:5173 and the API docs at http://localhost:8000/docs. 
+
+Note: Admin route: http://localhost:5173/admin
 
 ## Environment variables
 
@@ -68,3 +70,9 @@ The project has a k8s/ folder to simulate a real deploymen. As this build images
 - minikube: https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Fx86-64%2Fstable%2Fbinary+download
 
 Then after installing it just run `make` to run `kube-first` recipe from Makefile.
+
+To see you minikube IP (normally is `192.168.49.2`) just run `minikube ip` and use it to access you frontend and backend:
+- frontend: http://<minikube_ip>/30073 (http://192.168.49.2/30073)
+- admin: http://<minikube_ip>/30073/admin  (http://192.168.49.2/30073/admin)
+- backend: http://<minikube_ip>/30080/docs  (http://192.168.49.2/30080/docs)
+
